@@ -261,12 +261,12 @@ if __name__ == '__main__':
     with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
         # Convert dict_values to a list before slicing
         TutorialGroups_list = list(students_by_groups.values())
-        futures = [executor.submit(group_improve, TutorialGroup) for TutorialGroup in TutorialGroups_list[0:1]]
+        futures = [executor.submit(group_improve, TutorialGroup) for TutorialGroup in TutorialGroups_list]
 
         for future in concurrent.futures.as_completed(futures):
             try:
                 future.result()
-                for group in TutorialGroups_list[0:1]:
+                for group in TutorialGroups_list:
                     print(group.get_group_score(), group.get_avg_cgpa())
                     for team in group.students_by_teams.values():
                         for student in team.students:
